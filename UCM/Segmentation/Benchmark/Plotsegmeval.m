@@ -8,8 +8,9 @@ function output=Plotsegmeval(outDir,plotsuperpose,col)
 dt = datestr(now,'dd-mmm-yyyy_HH:MM');
 global results_txt_path
 global experimentname
+global gt_num
 logfile = fopen([outDir, filesep, 'results.txt'], 'w')
-logfile2 = fopen([results_txt_path, filesep, experimentname, '_', dt, '.txt'], 'w')
+logfile2 = fopen([results_txt_path, filesep, experimentname, '_', dt, '_gt_',num2str(gt_num), '.txt'], 'w')
 
 output=struct();
 

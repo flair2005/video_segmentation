@@ -167,12 +167,22 @@ voxelmode = 1
 
 global experimentmode
 
+
+%% Copy gt files 
+basedrive=['/cs/vml2/mkhodaba/cvpr16/VSB100/',filesep];
+destgt = [basedrive,'VideoProcessingTemp',filesep,theswitch,filesep,'gtimages', filesep];
+sourcegt = [destgt, 'gt_', num2str(options.gt_num), filesep, '*.png'];
+copyfile(sourcegt, destgt);
+global gt_num
+gt_num = options.gt_num
+
+
 %% ADDED by MEHRAN
 
 global results_txt_path
 results_txt_path = ['/cs/vml2/mkhodaba/datasets/VSB100/results/', theswitch, '/']
 
-basedrive=['/cs/vml2/mkhodaba/cvpr16/VSB100/',filesep]; %Directory where the VideoProcessingTemp dir is located
+ %Directory where the VideoProcessingTemp dir is located
 %basedrive=['/cs/vml3/mkhodaba/cvpr16/dataset/VSB100/',filesep]; %Directory where the VideoProcessingTemp dir is located
 %experiment_path = '/cs/vml2/mkhodaba/cvpr16/expriments/';
 experiment_path = '/local-scratch/expriments/';
@@ -180,17 +190,17 @@ basename_variables_directory=[basedrive,'VideoProcessingTemp',filesep,theswitch,
 
 filename_sequence_basename_frames_or_video.vidinfo_path = sprintf([basename_variables_directory,  filesep, 'vidinfo_%02d.mat'], options.ucm2level);
 if isfield(options,'experiment')
-results_path = [experiment_path, options.experiment, filesep];
-experimentmode = 1
+    results_path = [experiment_path, options.experiment, filesep];
+    experimentmode = 1
 else
-results_path = [basename_variables_directory, filesep];    
-experimentmode = 0
+    results_path = [basename_variables_directory, filesep];    
+    experimentmode = 0
 end
 
 if isfield(options,'experiment')
     filename_sequence_basename_frames_or_video.similarities_path = [experiment_path, filesep, num2str(options.experiment),  filesep, 'similarities_superpixels.h'];
     filename_sequence_basename_frames_or_video.voxel_similarities_path = [experiment_path, filesep, num2str(options.experiment),  filesep, 'similarities.mat'];
-    
+    filename_sequence_basename_frames_or_video.allsegmentation_path = [experiment_path, filesep, options.experiment, filesep, '/Shared/Benchmark/Segmcfstltifefff/Ucm2/allsegs',theswitch,'.mat']
 end
 realbasename = sprintf('/cs/vml2/mkhodaba/datasets/VSB100/Test/%s/ppm/', theswitch);
 realclosure = '.ppm';
